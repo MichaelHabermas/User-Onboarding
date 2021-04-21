@@ -14,18 +14,25 @@ const Label = styled.label`
 const Button = styled.button`
 	width: 80px;
 `;
+const ErrorDiv = styled.div`
+	color: red;
+	margin-bottom: 10px;
+`;
 
 // build the main form component
 export default function Form(props) {
-	const { values, submit, update } = props;
-
-	const handleChange = e => {
-		update(e.target.name, e.target.value);
-	};
+	const { values, submit, disabled, changeHandler, errors } = props;
 
 	return (
 		<FormCard>
-			<form className="form">
+			<ErrorDiv>
+				<div>{errors.first_name}</div>
+				<div>{errors.last_name}</div>
+				<div>{errors.email}</div>
+				<div>{errors.password}</div>
+				<div>{errors.tos}</div>
+			</ErrorDiv>
+			<form onSubmit={submit} className="form">
 				<Label>
 					First Name: {`    `}
 					<input
@@ -33,7 +40,7 @@ export default function Form(props) {
 						id="first_name"
 						type="text"
 						placeholder="Enter your first name..."
-						onChange={handleChange}
+						onChange={changeHandler}
 						value={values.first_name}
 					></input>
 				</Label>
@@ -44,7 +51,7 @@ export default function Form(props) {
 						id="last_name"
 						type="text"
 						placeholder="Enter your last name..."
-						onChange={handleChange}
+						onChange={changeHandler}
 						value={values.last_name}
 					></input>
 				</Label>
@@ -56,7 +63,7 @@ export default function Form(props) {
 						id="email"
 						type="text"
 						placeholder="Enter your email..."
-						onChange={handleChange}
+						onChange={changeHandler}
 						value={values.email}
 					></input>
 				</Label>
@@ -68,19 +75,24 @@ export default function Form(props) {
 						id="password"
 						type="password"
 						placeholder="Choose a password..."
-						onChange={handleChange}
+						onChange={changeHandler}
 						value={values.password}
 					></input>
 				</Label>
 
 				<Label>
 					Agree to Terms of Service? {`    `}
-					<input name="tos" id="tos" type="checkbox" onChange={handleChange} checked={values.tos}></input>
+					<input
+						name="tos"
+						id="tos"
+						type="checkbox"
+						// placeholder=""
+						onChange={changeHandler}
+						checked={values.tos}
+					></input>
 				</Label>
 
-				<Button type="submit" onClick={submit}>
-					SUBMIT
-				</Button>
+				<Button disabled={disabled}>SUBMIT</Button>
 			</form>
 		</FormCard>
 	);
