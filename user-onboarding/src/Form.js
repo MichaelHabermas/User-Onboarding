@@ -7,7 +7,22 @@ const FormCard = styled.div`
 	margin: 5%;
 	border-radius: 20px;
 	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+
+	label {
+		margin-bottom: 2%;
+	}
+
+	button {
+		width: 80px;
+	}
+
+	.err {
+		color: red;
+		font-size: 15%;
+		/* margin-bottom: 10px; */
+	}
 `;
+
 const Label = styled.label`
 	margin-bottom: 2%;
 `;
@@ -25,14 +40,15 @@ export default function Form(props) {
 
 	return (
 		<FormCard>
-			<ErrorDiv>
+			{/* <ErrorDiv>
 				<div>{errors.first_name}</div>
 				<div>{errors.last_name}</div>
 				<div>{errors.email}</div>
 				<div>{errors.password}</div>
 				<div>{errors.tos}</div>
-			</ErrorDiv>
+			</ErrorDiv> */}
 			<form onSubmit={submit} className="form">
+				<div className="err">{errors.first_name}</div>
 				<Label>
 					First Name: {`    `}
 					<input
@@ -44,6 +60,7 @@ export default function Form(props) {
 						value={values.first_name}
 					></input>
 				</Label>
+				<div className="err">{errors.last_name}</div>
 				<Label>
 					Last Name: {`    `}
 					<input
@@ -55,19 +72,19 @@ export default function Form(props) {
 						value={values.last_name}
 					></input>
 				</Label>
-
+				<div className="err">{errors.email}</div>
 				<Label>
 					Email: {`    `}
 					<input
 						name="email"
 						id="email"
-						type="text"
+						type="email"
 						placeholder="Enter your email..."
 						onChange={changeHandler}
 						value={values.email}
 					></input>
 				</Label>
-
+				<div className="err">{errors.password}</div>
 				<Label>
 					Password: {`    `}
 					<input
@@ -79,7 +96,7 @@ export default function Form(props) {
 						value={values.password}
 					></input>
 				</Label>
-
+				<div className="err">{errors.tos}</div>
 				<Label>
 					Agree to Terms of Service? {`    `}
 					<input
@@ -92,7 +109,7 @@ export default function Form(props) {
 					></input>
 				</Label>
 
-				<Button disabled={disabled}>SUBMIT</Button>
+				<button disabled={disabled}>SUBMIT</button>
 			</form>
 		</FormCard>
 	);

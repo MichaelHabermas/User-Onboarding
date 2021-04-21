@@ -35,24 +35,22 @@ const initialFormValues = {
 const schema = yup.object().shape({
 	first_name: yup.string().required('Please enter your first name').min(3, 'Name needs to be 3 characters minimum'),
 	last_name: yup.string().required('Please enter your last name').min(2, 'Name needs to be 2 characters minimum'),
-	email: yup.string().required('Please enter a valid email').min(8, 'Email needs to be 8 characters minimum'),
+	email: yup.string().email('Please enter a valid email'),
 	password: yup.string().required('Please choose a valid password').min(8, 'Password must be 8 characters minimum'),
 	tos: yup.boolean().oneOf([true], 'You must agree to the Terms of Service to continue')
-});
+}); // creates the testing criteria and error messages for the form entry fields
 
 function App() {
 	const [formValues, setFormValues] = useState(initialFormValues); // holds the values in the form as an object
 	const [disabled, setDisabled] = useState(true); // determines if the submit button is useable
-	// -------- holds the list of users from the network API request
-	const [users, setUsers] = useState([]); // ------------- real one
-	// const [users, setUsers] = useState(fakeData); // ------------- practice one
+	const [users, setUsers] = useState([]); //  holds the list of users from the network API request
 	const [errors, setErrors] = useState({
 		first_name: '',
 		last_name: '',
 		email: '',
 		password: '',
 		tos: false
-	});
+	}); // for the error messages to be displayed as form entry data does not meet yup criteria
 
 	const setFormErrors = (name, value) => {
 		yup.reach(schema, name)
