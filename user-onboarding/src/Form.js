@@ -19,19 +19,7 @@ const FormCard = styled.div`
 	.err {
 		color: red;
 		font-size: 15%;
-		/* margin-bottom: 10px; */
 	}
-`;
-
-const Label = styled.label`
-	margin-bottom: 2%;
-`;
-const Button = styled.button`
-	width: 80px;
-`;
-const ErrorDiv = styled.div`
-	color: red;
-	margin-bottom: 10px;
 `;
 
 // build the main form component
@@ -40,16 +28,9 @@ export default function Form(props) {
 
 	return (
 		<FormCard>
-			{/* <ErrorDiv>
-				<div>{errors.first_name}</div>
-				<div>{errors.last_name}</div>
-				<div>{errors.email}</div>
-				<div>{errors.password}</div>
-				<div>{errors.tos}</div>
-			</ErrorDiv> */}
 			<form onSubmit={submit} className="form">
 				<div className="err">{errors.first_name}</div>
-				<Label>
+				<label>
 					First Name: {`    `}
 					<input
 						name="first_name"
@@ -59,9 +40,9 @@ export default function Form(props) {
 						onChange={changeHandler}
 						value={values.first_name}
 					></input>
-				</Label>
+				</label>
 				<div className="err">{errors.last_name}</div>
-				<Label>
+				<label>
 					Last Name: {`    `}
 					<input
 						name="last_name"
@@ -71,9 +52,9 @@ export default function Form(props) {
 						onChange={changeHandler}
 						value={values.last_name}
 					></input>
-				</Label>
+				</label>
 				<div className="err">{errors.email}</div>
-				<Label>
+				<label>
 					Email: {`    `}
 					<input
 						name="email"
@@ -83,9 +64,9 @@ export default function Form(props) {
 						onChange={changeHandler}
 						value={values.email}
 					></input>
-				</Label>
+				</label>
 				<div className="err">{errors.password}</div>
-				<Label>
+				<label>
 					Password: {`    `}
 					<input
 						name="password"
@@ -95,9 +76,9 @@ export default function Form(props) {
 						onChange={changeHandler}
 						value={values.password}
 					></input>
-				</Label>
+				</label>
 				<div className="err">{errors.tos}</div>
-				<Label>
+				<label>
 					Agree to Terms of Service? {`    `}
 					<input
 						name="tos"
@@ -107,7 +88,7 @@ export default function Form(props) {
 						onChange={changeHandler}
 						checked={values.tos}
 					></input>
-				</Label>
+				</label>
 
 				<button disabled={disabled}>SUBMIT</button>
 			</form>

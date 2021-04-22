@@ -52,14 +52,15 @@ function App() {
 		tos: false
 	}); // for the error messages to be displayed as form entry data does not meet yup criteria
 
+	// checks for errors and displays them if conditions are not met
 	const setFormErrors = (name, value) => {
 		yup.reach(schema, name)
 			.validate(value)
 			.then(() => {
-				setErrors({ ...errors, [name]: '' });
+				setErrors({ ...errors, [name]: '' }); // if conditions are met replaces an error message with an empty string
 			})
 			.catch(err => {
-				setErrors({ ...errors, [name]: err.errors[0] });
+				setErrors({ ...errors, [name]: err.errors[0] }); // this is just the way it needs to be. See Month 2 Week 2 Day 3 Lambda
 			});
 	};
 
@@ -71,10 +72,12 @@ function App() {
 		setFormValues({ ...formValues, [name]: updatedInfo });
 	};
 
+	// checks to see if all fields are valid so it mat enable the submit button
 	useEffect(() => {
 		schema.isValid(formValues).then(valid => setDisabled(!valid));
 	}, [formValues]);
 
+	// submit functionality
 	const submitValues = e => {
 		e.preventDefault();
 		const newUser = {
@@ -87,14 +90,13 @@ function App() {
 		axios
 			.post('https://reqres.in/api/users', newUser)
 			.then(res => {
-				// setUsers([...users, newUser]);
-				console.log(res);
-				setFormValues(initialFormValues); // may go somewhere else later
 				axios
 					.get('https://reqres.in/api/users')
 					.then(res => {
-						setUsers(res.data.data);
-						console.log(res);
+						// setUsers(res.data.data);  // what I would use if the POST request was real
+						// setUsers([...users, newUser]);
+						setUsers([...res.data.data, newUser]); // useful in this instance, for demo purposes
+						setFormValues(initialFormValues); // clears the form values
 					})
 					.catch(err => {
 						console.log(err);
@@ -105,6 +107,7 @@ function App() {
 			});
 	};
 
+	// the initial data retrieve and display
 	useEffect(() => {
 		axios
 			.get('https://reqres.in/api/users')
@@ -117,6 +120,7 @@ function App() {
 			});
 	}, []);
 
+	// buys time for the get request to finish
 	if (users.length === 0) return <h3>Loading Data, Chillaz...</h3>;
 
 	return (
