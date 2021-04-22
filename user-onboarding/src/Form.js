@@ -90,7 +90,9 @@ export default function Form(props) {
 					></input>
 				</label>
 
-				<button disabled={disabled}>SUBMIT</button>
+				<button id="submitBtn" disabled={disabled}>
+					SUBMIT
+				</button>
 			</form>
 		</FormCard>
 	);
